@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+
+p {
+    margin: 0px;
+    padding: 0px;
+}
+
+.Main {
+    font-family: 'Roboto';
+    width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000000;
+}
+
+.Main_search-bar {
+    border-bottom: 1px solid #000000;
+    display: flex;
+    justify-content: space-between;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    background: #FFFFFF;
+}
+
+.Main_search-bar_input {
+    margin: 11px 0px 13px 16px;
+    border: none;
+    outline: none;
+    width: 400px;
+    
+}
+
+.Main_search-bar_search-img {
+    margin: 7px 17px 0px 0px;
+    width: 30px;
+    height: 30px;
+}
+
+.Main-space {
+    display: flex;
+}
+
+.Main-space_container-one {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #000000;
+    width: 299px;
+}
+
+.Main-space_container-one_weather {}
+
+.Main-space_container-one_weather_degrees {
+    margin: 20px 0px 0px 23px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 70px;
+    line-height: 82px;
+
+    color: #000000;
+}
+
+.Main-space_container-one_weather_pic {
+    margin: 40px 0px 98px 112px;
+}
+
+.Main-space_container-one_weather_locations {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    margin: 0px 26px 17px 12px;
+}
+
+.Main-space_container-one_weather_location {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+}
+
+.Main-space_container-one_weather_add-to-favorite {
+    width: 22px;
+    height: 22px;
+}
+
+.Main-space_container-one_buttons {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #000000;
+}
+
+.Main_button{
+    cursor: pointer;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    background: none;
+
+}
+
+.Main_button:hover{
+    background: #000000;
+    color: #FFFFFF;
+}
+
+.Main_active-button{
+    background: #000000;
+    color: #FFFFFF;
+}
+
+
+
+.Main-space_container-one_buttons_now {
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 21px;
+width: 99px;
+padding: 12px 0px 11px 0px;
+}
+
+
+.Main-space_container-one_buttons_details {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    padding: 12px 0px 11px 0px;
+    margin: 0px;
+    width: 100px;
+    border-left: 1px solid #000000;
+}
+
+.Main-space_container-one_buttons_forecast {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    padding: 12px 0px 11px 0px;
+    margin: 0px;
+    width: 100px;
+    border-left: 1px solid #000000;
+}
+
+.Main_space_container-two {
+    display: flex;
+    flex-direction: column;
+}
+
+.Main_space_container-added_locations {
+    display: flex;
+    flex-direction: column;
+}
+
+.Main_space_container-added_locations_header {
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 28px;
+color: #000000;
+padding: 33px 0px 7px 18px;
+}
+
+.Main_space_container-added_locations_list {
+    width: 288px;
+    border-top: 1px solid #000000;
+  padding: 35px 0px 0px 18px;
+}
+
+.Main_space_container-added_locations_name {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 40px;
+
+    color: #000000;
+}
