@@ -32,7 +32,7 @@ p {
     border: none;
     outline: none;
     width: 400px;
-    
+
 }
 
 .Main_search-bar_search-img {
@@ -98,7 +98,7 @@ p {
     border-top: 1px solid #000000;
 }
 
-.Main_button{
+.Main_button {
     cursor: pointer;
     border: none;
     margin: 0px;
@@ -107,12 +107,12 @@ p {
 
 }
 
-.Main_button:hover{
+.Main_button:hover {
     background: #000000;
     color: #FFFFFF;
 }
 
-.Main_active-button{
+.Main_active-button {
     background: #000000;
     color: #FFFFFF;
 }
@@ -120,12 +120,12 @@ p {
 
 .Main-space_container-one_buttons_now {
     font-family: 'Roboto';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 21px;
-width: 99px;
-padding: 12px 0px 11px 0px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    width: 99px;
+    padding: 12px 0px 11px 0px;
 }
 
 
@@ -165,18 +165,18 @@ padding: 12px 0px 11px 0px;
 
 .Main_space_container-added_locations_header {
     font-family: 'Roboto';
-font-style: normal;
-font-weight: 400;
-font-size: 24px;
-line-height: 28px;
-color: #000000;
-padding: 33px 0px 7px 18px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+    padding: 33px 0px 7px 18px;
 }
 
 .Main_space_container-added_locations_list {
     width: 288px;
     border-top: 1px solid #000000;
-  padding: 35px 0px 0px 18px;
+    padding: 35px 0px 0px 18px;
 }
 
 .Main_space_container-added_locations_name {
@@ -185,6 +185,20 @@ padding: 33px 0px 7px 18px;
     font-weight: 400;
     font-size: 24px;
     line-height: 40px;
+    color: #000000;
+}
+
+
+.Main-space_container-one_weather_locations_page2 {
+    padding: 33px 0px 0px 17px;
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 38px;
 
     color: #000000;
+}
+
+.weather-locations_names {
+    padding-bottom: 42px;
 }
