@@ -1,7 +1,9 @@
 const form = document.querySelector('.Main_search-bar');
 const searchButton = document.querySelector('.Main_search-bar_search-img');
 const searchLocationInput = document.querySelector('.Main_search-bar_input')
-
+const selectedCity = document.querySelector('.Main-space_container-one_weather_location');
+const selectedCityTemp = document.querySelector('.Main-space_container-one_weather_degrees');
+const selectedCityWeather = document.querySelector('.Main-space_container-one_weather_pic');
 
 /* searchButton.addEventListener('click', weather(searchLocationInput.value));
 searchButton.addEventListener('submit', );
@@ -19,9 +21,13 @@ function weather(cityName) {
             return response.json();
 
         })
-        .then((data) =>
-            console.log(Math.round( data.main.temp - 273))); // Температура 
+
+        .then((data) => {
+            selectedCity.textContent = data.name;
+            selectedCityTemp.innerHTML = Math.round(data.main.temp - 273) + '&deg;';
+            selectedCityWeather.innerHTML = `<img src ="http://openweathermap.org/img/wn/${data.weather[0]['icon']}@2x.png">`;
+        })
 }
 
 
-weather('London');
+weather('Moscow');
