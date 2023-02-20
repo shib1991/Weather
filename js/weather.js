@@ -38,12 +38,3 @@ function weather(cityName) {
            alert(err);
         })
 }
-
-
-
-
-
-
-
-
-/* weather('Nalchik'); */
