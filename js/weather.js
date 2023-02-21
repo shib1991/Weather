@@ -34,7 +34,9 @@ function weather(cityName) {
             selectedCityWeather.src = (`http://openweathermap.org/img/wn/${data.weather[0]['icon']}@2x.png`);
         })
 
-        .catch(err=>{
-           alert(err);
+        .catch((err)=>{
+           if(err.status ==404){
+            alert("Данный город не найден");
+           };
         })
 }
