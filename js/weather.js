@@ -6,19 +6,19 @@ const selectedCityTemp = document.querySelector('.Main-space_container-one_weath
 const selectedCityWeather = document.querySelector('.Main-space_container-one_weather_pic');
 
 form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    weather(searchLocationInput.value)
+    e.preventDefault()
+    weather(searchLocationInput.value);
 });
 
 searchButton.addEventListener('click',(e)=>{
-    e.preventDefault();
-    weather(searchLocationInput.value)
+    e.preventDefault()
+    weather(searchLocationInput.value);
 })
 
 
 function weather(cityName) {
 
-    const serverUrl = 'http://api.openweathermap.org1/data/2.5/weather';
+    const serverUrl = 'http://api.openweathermap.org/data/2.5/weather';
     const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
     const url = (`${serverUrl}?q=${cityName}&appid=${apiKey}`);
 
@@ -33,10 +33,9 @@ function weather(cityName) {
             selectedCityTemp.innerHTML = Math.round(data.main.temp - 273) + '&deg;';
             selectedCityWeather.src = (`http://openweathermap.org/img/wn/${data.weather[0]['icon']}@2x.png`);
         })
-
-        .catch((err)=>{
-           if(err.status ==404){
+     .catch((err)=>{
+           if(err.status === undefined){
             alert("Данный город не найден");
-           };
-        })
+           }   
+        });
 }
