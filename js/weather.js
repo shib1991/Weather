@@ -5,6 +5,9 @@ const selectedCity = document.querySelector('.Main-space_container-one_weather_l
 const selectedCityTemp = document.querySelector('.Main-space_container-one_weather_degrees');
 const selectedCityWeather = document.querySelector('.Main-space_container-one_weather_pic');
 
+
+
+
 form.addEventListener('submit', function(e) {
     e.preventDefault()
     weather(searchLocationInput.value);
@@ -39,3 +42,23 @@ function weather(cityName) {
            }   
         });
 }
+
+
+console.log(document.querySelector('.Main_space_container-added_locations_list'));
+
+function addToFavorite(){
+    const favoriteList = document.querySelector('.Main_space_container-added_locations_list');
+    const addContainer = document.createElement('div');
+    const addText = document.createElement('p');
+    const addButton = document.createElement('input');
+    const div =  favoriteList.appendChild(addContainer);
+    
+    div.classList('Main_space_container-added_locations-item')
+    div.id = "New Element";
+    
+    
+
+}
+
+
+addToFavorite();
