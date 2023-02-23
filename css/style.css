@@ -187,6 +187,12 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 279px;
+    cursor: pointer;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    background: none;
 }
 .Main_space_container-added_locations_name {
     font-family: 'Roboto';

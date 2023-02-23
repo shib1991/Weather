@@ -29,23 +29,8 @@ saveLocation.addEventListener('click', function (e) {
     };
 })
 
-
 favoritesList.addEventListener('click',deleteItem);
-
-/* 
-function delbutton(){
-    for (let key of favoriteItems) {
-        console.log(key.textContent);
-    }
-}
-function del() {
-    for (let key of favoriteItems) {
-        console.log(key.textContent);
-    }
-}
- */
-
-
+favoritesList.addEventListener('click',showWeather);
 
 
 
@@ -78,31 +63,44 @@ function weather(cityName) {
 
 function addToFavotite(cityName) {
     const favoriteList = document.querySelector('.Main_space_container-added_locations_list');
-    let div = document.createElement('div');
-    div.id = cityName;
-    div.className = 'Main_space_container-added_locations-item';
+    let button = document.createElement('button');
+    button.id = cityName;
+    button.className = 'Main_space_container-added_locations-item';
 
     let p = document.createElement('p');
     p.textContent = cityName;
     p.className = 'Main_space_container-added_locations_name';
-    div.appendChild(p);
+    button.appendChild(p);
 
     let input = document.createElement('input');
     input.type = 'image';
     input.className = 'remImg';
     input.id = 'remove_img'
     input.src = '/src/remove.png';
-    div.appendChild(input);
+    button.appendChild(input);
 
-    favoriteList.appendChild(div);
+    favoriteList.appendChild(button);
     weather(cityName);
 }
 
 
 function deleteItem(event) {
     if (event.target.classList.contains('remImg')) {
-        console.log(event.target.textContent);
         const parentNode = event.target.closest('.Main_space_container-added_locations-item');
         parentNode.remove();
     }
 }
+
+
+
+function showWeather(event){
+    if (event.target.classList.contains('Main_space_container-added_locations_name')) {
+        cityName = event.target.textContent;
+        weather(cityName);
+    }
+
+
+
+
+}
+
