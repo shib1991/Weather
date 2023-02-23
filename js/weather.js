@@ -1,18 +1,13 @@
 const form = document.querySelector('.Main_search-bar');
+const favoritesList = document.querySelector('.Main_space_container-added_locations');
 const searchButton = document.querySelector('.Main_search-bar_search-img');
 const searchLocationInput = document.querySelector('.Main_search-bar_input')
 const selectedCity = document.querySelector('.Main-space_container-one_weather_location');
 const selectedCityTemp = document.querySelector('.Main-space_container-one_weather_degrees');
 const selectedCityWeather = document.querySelector('.Main-space_container-one_weather_pic');
 const saveLocation = document.querySelector('.Main-space_container-one_weather_add-to-favorite');
-const deleteAtFavoritesButton = document.querySelector('.remImg');
-
-
-
-
-
-
-
+const deleteAtFavoritesButton = document.querySelectorAll('.remImg');
+const favoriteItems = document.querySelectorAll('.Main_space_container-added_locations-item');
 
 
 form.addEventListener('submit', function (e) {
@@ -27,22 +22,28 @@ searchButton.addEventListener('click', (e) => {
 
 saveLocation.addEventListener('click', function (e) {
     e.preventDefault();
-    if(searchLocationInput.value===""){
+    if (searchLocationInput.value === "") {
         alert('Location is undefined')
-    }else{
-    addToFavotite(searchLocationInput.value);
-};
+    } else {
+        addToFavotite(searchLocationInput.value);
+    };
 })
 
-deleteAtFavoritesButton.addEventListener('click',deleteAtFavorite);
 
+favoritesList.addEventListener('click',deleteItem);
 
-/* deleteAtFavoritesButton.addEventListener('click', function (e) {
-    e.preventDefault();
-    console.log('Не чувствую');
-}); */
-
-
+/* 
+function delbutton(){
+    for (let key of favoriteItems) {
+        console.log(key.textContent);
+    }
+}
+function del() {
+    for (let key of favoriteItems) {
+        console.log(key.textContent);
+    }
+}
+ */
 
 
 
@@ -97,9 +98,11 @@ function addToFavotite(cityName) {
     weather(cityName);
 }
 
-function deleteAtFavorite(event) {
-    const child = event.clossest('remImg');
-    const parentNode = event.clossest('.Main_space_container-added_locations_list');
-parentNode.remove(child);
 
+function deleteItem(event) {
+    if (event.target.classList.contains('remImg')) {
+        console.log(event.target.textContent);
+        const parentNode = event.target.closest('.Main_space_container-added_locations-item');
+        parentNode.remove();
+    }
 }
