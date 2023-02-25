@@ -120,12 +120,8 @@ function showWeather(event) {
 
 
 window.onload = () => {
-    /* let sc = localStorage.savedLocation; */
-    /*     weather(localStorage.savedLocation); */
-
-}
-
-
-function openFavoritList(){
-    
+ let larray = JSON.parse(localStorage.savedLocation);
+ for ( let key of larray ){
+    addToFavotite(key);
+ }
 }
