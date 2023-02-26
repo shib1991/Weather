@@ -6,13 +6,13 @@ const selectedCity = document.querySelector('.Main-space_container-one_weather_l
 const selectedCityTemp = document.querySelector('.Main-space_container-one_weather_degrees');
 const selectedCityWeather = document.querySelector('.Main-space_container-one_weather_pic');
 const saveLocation = document.querySelector('.Main-space_container-one_weather_add-to-favorite');
-const deleteAtFavoritesButton = document.querySelectorAll('.remImg');
-const favoriteItems = document.querySelectorAll('.Main_space_container-added_locations-item');
-let savedName;
-let favoritNames = [];
-let favoritNamesFiltered = [];
+/* const deleteAtFavoritesButton = document.querySelectorAll('.remImg');
+const favoriteItems = document.querySelectorAll('.Main_space_container-added_locations-item'); */
+/* let savedName; */
+let favoriteNames = [];
 
 
+import { showFavCities} from "./module.js";
 
 form.addEventListener('submit', function (e) {
     e.preventDefault()
@@ -34,7 +34,7 @@ saveLocation.addEventListener('click', function (e) {
         alert('Location is undefined')
         return
     }
-    if (favoritNames.includes(searchLocationInput.value)) {
+    if (favoriteNames.includes(searchLocationInput.value) ) {
         alert('location is on the list')
     } else {
         addToFavotite(searchLocationInput.value);
@@ -89,20 +89,18 @@ function addToFavotite(cityName) {
     button.appendChild(input);
     favoriteList.appendChild(button);
     weather(cityName);
-    favoritNames.push(cityName);
-    favoritNamesFiltered.push(cityName);
-    return localStorage.setItem('savedLocation', JSON.stringify(favoritNames));
+    favoriteNames.push(cityName);
+    return localStorage.setItem('savedLocation', JSON.stringify(favoriteNames));
 }
 
 function deleteItem(event) {
     if (event.target.classList.contains('remImg')) {
         const parentNode = event.target.closest('.Main_space_container-added_locations-item');
-        favoritNamesFiltered = favoritNames.filter(e => {
+        favoriteNames = favoriteNames.filter(e => {
             return e !== parentNode.textContent
         })
         parentNode.remove();
-        favoritNames = favoritNamesFiltered;
-        return localStorage.setItem('savedLocation', JSON.stringify(favoritNames));
+        return localStorage.setItem('savedLocation', JSON.stringify(favoriteNames));
     };
 
 }
@@ -118,10 +116,18 @@ function showWeather(event) {
 }
 
 
-
 window.onload = () => {
- let larray = JSON.parse(localStorage.savedLocation);
- for ( let key of larray ){
-    addToFavotite(key);
- }
+    showFavCities();
+  
 }
+
+
+/* 
+export{deleteAtFavoritesButton,favoriteItems}
+ */
+/* window.onload = () => {
+    let larray = JSON.parse(localStorage.savedLocation);
+    for (let key of larray) {
+        addToFavotite(key);
+    }
+} */
