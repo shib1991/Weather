@@ -108,7 +108,6 @@ function deleteItem(event) {
         parentNode.remove();
         return localStorage.setItem('savedLocation', JSON.stringify(favoriteNames));
     };
-
 }
 
 
@@ -116,8 +115,8 @@ function deleteItem(event) {
 
 function showWeather(event) {
     if (event.target.classList.contains('Main_space_container-added_locations_name')) {
-        cityName = event.target.textContent;
-        weather(cityName);
+        let Name = event.target.textContent;
+        weather(Name);
     }
 }
 
