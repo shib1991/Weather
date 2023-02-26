@@ -6,12 +6,8 @@ const selectedCity = document.querySelector('.Main-space_container-one_weather_l
 const selectedCityTemp = document.querySelector('.Main-space_container-one_weather_degrees');
 const selectedCityWeather = document.querySelector('.Main-space_container-one_weather_pic');
 const saveLocation = document.querySelector('.Main-space_container-one_weather_add-to-favorite');
-/* const deleteAtFavoritesButton = document.querySelectorAll('.remImg');
-const favoriteItems = document.querySelectorAll('.Main_space_container-added_locations-item'); */
-/* let savedName; */
 let favoriteNames = [];
 let lastLoc = showLastLocation();
-
 
 import {
     showFavCities,
@@ -25,14 +21,10 @@ form.addEventListener('submit', function (e) {
     weather(searchLocationInput.value);
 });
 
-
-
 searchButton.addEventListener('click', (e) => {
     e.preventDefault()
     weather(searchLocationInput.value);
 })
-
-
 
 saveLocation.addEventListener('click', function (e) {
     e.preventDefault();
@@ -51,6 +43,24 @@ favoritesList.addEventListener('click', deleteItem);
 favoritesList.addEventListener('click', showWeather);
 
 
+function showListOnDisplay(item) {
+    const favoriteList = document.querySelector('.Main_space_container-added_locations_list');
+    let button = document.createElement('button');
+    button.id = item;
+    button.className = 'Main_space_container-added_locations-item';
+    let p = document.createElement('p');
+    p.textContent = item;
+    p.className = 'Main_space_container-added_locations_name';
+    button.appendChild(p);
+
+    let input = document.createElement('input');
+    input.type = 'image';
+    input.className = 'remImg';
+    input.id = 'remove_img'
+    input.src = '/src/remove.png';
+    button.appendChild(input);
+    favoriteList.appendChild(button);
+}
 
 function weather(cityName) {
     const serverUrl = 'http://api.openweathermap.org/data/2.5/weather';
@@ -75,54 +85,19 @@ function weather(cityName) {
         });
 }
 
-
 function addToFavotite(cityName) {
-    const favoriteList = document.querySelector('.Main_space_container-added_locations_list');
-    let button = document.createElement('button');
-    button.id = cityName;
-    button.className = 'Main_space_container-added_locations-item';
-
-    let p = document.createElement('p');
-    p.textContent = cityName;
-    p.className = 'Main_space_container-added_locations_name';
-    button.appendChild(p);
-
-    let input = document.createElement('input');
-    input.type = 'image';
-    input.className = 'remImg';
-    input.id = 'remove_img'
-    input.src = '/src/remove.png';
-    button.appendChild(input);
-    favoriteList.appendChild(button);
+    showListOnDisplay(cityName);
     weather(cityName);
     favoriteNames.push(cityName);
     saveInStorage(favoriteNames);
 }
 
-
 function openFavList() {
     let actualList = showFavCities();
     actualList.forEach(el => {
-        const favoriteList = document.querySelector('.Main_space_container-added_locations_list');
-        let button = document.createElement('button');
-        button.id = el;
-        button.className = 'Main_space_container-added_locations-item';
-        let p = document.createElement('p');
-        p.textContent = el;
-        p.className = 'Main_space_container-added_locations_name';
-        button.appendChild(p);
-
-        let input = document.createElement('input');
-        input.type = 'image';
-        input.className = 'remImg';
-        input.id = 'remove_img'
-        input.src = '/src/remove.png';
-        button.appendChild(input);
-        favoriteList.appendChild(button);
+        showListOnDisplay(el);
     });
 }
-
-
 
 function deleteItem(event) {
     if (event.target.classList.contains('remImg')) {
@@ -135,16 +110,12 @@ function deleteItem(event) {
     };
 }
 
-
-
-
 function showWeather(event) {
     if (event.target.classList.contains('Main_space_container-added_locations_name')) {
         let Name = event.target.textContent;
         weather(Name);
     }
 }
-
 
 window.onload = () => {
     openFavList();
