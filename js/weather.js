@@ -10,9 +10,15 @@ const saveLocation = document.querySelector('.Main-space_container-one_weather_a
 const favoriteItems = document.querySelectorAll('.Main_space_container-added_locations-item'); */
 /* let savedName; */
 let favoriteNames = [];
+let lastLoc = showLastLocation();
 
 
-import { showFavCities} from "./module.js";
+import {
+    showFavCities,
+    saveInStorage,
+    showLastLocation,
+    FavCities
+} from "./module.js";
 
 form.addEventListener('submit', function (e) {
     e.preventDefault()
@@ -34,7 +40,7 @@ saveLocation.addEventListener('click', function (e) {
         alert('Location is undefined')
         return
     }
-    if (favoriteNames.includes(searchLocationInput.value) ) {
+    if (favoriteNames.includes(searchLocationInput.value)) {
         alert('location is on the list')
     } else {
         addToFavotite(searchLocationInput.value);
@@ -90,7 +96,7 @@ function addToFavotite(cityName) {
     favoriteList.appendChild(button);
     weather(cityName);
     favoriteNames.push(cityName);
-    return localStorage.setItem('savedLocation', JSON.stringify(favoriteNames));
+    saveInStorage(favoriteNames);
 }
 
 function deleteItem(event) {
@@ -118,16 +124,6 @@ function showWeather(event) {
 
 window.onload = () => {
     showFavCities();
-  
+    weather(lastLoc);
+    favoriteNames = FavCities(favoriteNames);
 }
-
-
-/* 
-export{deleteAtFavoritesButton,favoriteItems}
- */
-/* window.onload = () => {
-    let larray = JSON.parse(localStorage.savedLocation);
-    for (let key of larray) {
-        addToFavotite(key);
-    }
-} */
