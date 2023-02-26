@@ -99,6 +99,31 @@ function addToFavotite(cityName) {
     saveInStorage(favoriteNames);
 }
 
+
+function openFavList() {
+    let actualList = showFavCities();
+    actualList.forEach(el => {
+        const favoriteList = document.querySelector('.Main_space_container-added_locations_list');
+        let button = document.createElement('button');
+        button.id = el;
+        button.className = 'Main_space_container-added_locations-item';
+        let p = document.createElement('p');
+        p.textContent = el;
+        p.className = 'Main_space_container-added_locations_name';
+        button.appendChild(p);
+
+        let input = document.createElement('input');
+        input.type = 'image';
+        input.className = 'remImg';
+        input.id = 'remove_img'
+        input.src = '/src/remove.png';
+        button.appendChild(input);
+        favoriteList.appendChild(button);
+    });
+}
+
+
+
 function deleteItem(event) {
     if (event.target.classList.contains('remImg')) {
         const parentNode = event.target.closest('.Main_space_container-added_locations-item');
@@ -122,7 +147,7 @@ function showWeather(event) {
 
 
 window.onload = () => {
-    showFavCities();
+    openFavList();
     weather(lastLoc);
     favoriteNames = FavCities(favoriteNames);
 }

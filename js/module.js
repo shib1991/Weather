@@ -13,7 +13,8 @@ function FavCities(farray) {
 function showFavCities() {
 
     const favarray = JSON.parse(localStorage.savedLocation);
-    favarray.forEach(el => {
+    return favarray;
+/*     favarray.forEach(el => {
         const favoriteList = document.querySelector('.Main_space_container-added_locations_list');
         let button = document.createElement('button');
         button.id = el;
@@ -31,8 +32,8 @@ function showFavCities() {
         input.src = '/src/remove.png';
         button.appendChild(input);
         favoriteList.appendChild(button);
-    });
-    return localStorage.setItem('savedLocation', JSON.stringify(favarray));
+    }); */
+/*     return localStorage.setItem('savedLocation', JSON.stringify(favarray)); */
 }
 
 
