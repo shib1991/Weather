@@ -6,10 +6,12 @@ const selectedCity = document.querySelector('.Main-space_container-one_weather_l
 const selectedCityTemp = document.querySelector('.Main-space_container-one_weather_degrees');
 const selectedCityWeather = document.querySelector('.Main-space_container-one_weather_pic');
 const saveLocation = document.querySelector('.Main-space_container-one_weather_add-to-favorite');
+const SERVER_URL = 'http://api.openweathermap.org/data/2.5/weather';
+const API_KEY = 'f660a2fb1e4bad108d6160b7f58c555f';
+
 let favoriteNames = [];
 let lastLoc = showLastLocation();
 
-import {
 import {
     showFavCities,
     saveInStorage,
@@ -64,20 +66,16 @@ function showListOnDisplay(item) {
 }
 
 function weather(cityName) {
-    const serverUrl = 'http://api.openweathermap.org/data/2.5/weather';
-    const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
-    const url = (`${serverUrl}?q=${cityName}&appid=${apiKey}`);
+
+    const url = (`${SERVER_URL}?q=${cityName}&appid=${API_KEY}`);
 
     fetch(url)
         .then((response) => {
             return response.json();
-
         })
 
         .then((data) => {
-            selectedCity.textContent = data.name;
-            selectedCityTemp.innerHTML = Math.round(data.main.temp - 273) + '&deg;';
-            selectedCityWeather.src = (`http://openweathermap.org/img/wn/${data.weather[0]['icon']}@2x.png`);
+            changeNOW(data.name, data.main.temp, data.weather)
         })
         .catch((err) => {
             if (err.status === undefined) {
@@ -117,6 +115,15 @@ function showWeather(event) {
         weather(Name);
     }
 }
+
+
+
+function changeNOW(name, temp, icon) {
+    selectedCity.textContent = name;
+    selectedCityTemp.innerHTML = Math.round(temp - 273) + '&deg;';
+    selectedCityWeather.src = (`http://openweathermap.org/img/wn/${icon[0]['icon']}@2x.png`);
+}
+
 
 window.onload = () => {
     openFavList();
