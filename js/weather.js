@@ -10,6 +10,7 @@ let favoriteNames = [];
 let lastLoc = showLastLocation();
 
 import {
+import {
     showFavCities,
     saveInStorage,
     showLastLocation,
