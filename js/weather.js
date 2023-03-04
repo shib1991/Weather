@@ -61,7 +61,7 @@ function showListOnDisplay(item) {
     input.type = 'image';
     input.className = 'remImg';
     input.id = 'remove_img'
-    input.src = '/src/remove.png';
+    input.src = '/img/remove.png';
     button.appendChild(input);
     favoriteList.appendChild(button);
 }
