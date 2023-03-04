@@ -2,13 +2,13 @@ function saveInStorage(array) {
     return localStorage.setItem('savedLocation', JSON.stringify(array));
 }
 
-function FavCities(farray) {
+function FavoriteCities(farray) {
     const array = JSON.parse(localStorage.savedLocation);
     farray = farray.concat(array);
     return farray;
 }
 
-function showFavCities() {
+function showFavoriteCities() {
 
     const favarray = JSON.parse(localStorage.savedLocation);
     return favarray;
@@ -21,8 +21,8 @@ function showLastLocation() {
 }
 
 export {
-    showFavCities,
+    showFavoriteCities,
     saveInStorage,
     showLastLocation,
-    FavCities
+    FavoriteCities
 };

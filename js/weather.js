@@ -10,13 +10,13 @@ const SERVER_URL = 'http://api.openweathermap.org/data/2.5/weather';
 const API_KEY = 'f660a2fb1e4bad108d6160b7f58c555f';
 
 let favoriteNames = [];
-let lastLoc = showLastLocation();
+let lastLocation = showLastLocation();
 
 import {
-    showFavCities,
+    showFavoriteCities,
     saveInStorage,
     showLastLocation,
-    FavCities
+    FavoriteCities
 } from "./module.js";
 
 form.addEventListener('submit', function (e) {
@@ -38,7 +38,8 @@ saveLocation.addEventListener('click', function (e) {
     if (favoriteNames.includes(searchLocationInput.value)) {
         alert('location is on the list')
     } else {
-        addToFavotite(searchLocationInput.value);
+        addToFavoriteList
+        (searchLocationInput.value);
     };
 })
 
@@ -84,15 +85,16 @@ function weather(cityName) {
         });
 }
 
-function addToFavotite(cityName) {
+function addToFavoriteList
+(cityName) {
     showListOnDisplay(cityName);
     weather(cityName);
     favoriteNames.push(cityName);
     saveInStorage(favoriteNames);
 }
 
-function openFavList() {
-    let actualList = showFavCities();
+function openFavoriteList() {
+    let actualList = showFavoriteCities();
     actualList.forEach(el => {
         showListOnDisplay(el);
     });
@@ -126,7 +128,7 @@ function changeNOW(name, temp, icon) {
 
 
 window.onload = () => {
-    openFavList();
-    weather(lastLoc);
-    favoriteNames = FavCities(favoriteNames);
+    openFavoriteList();
+    weather(lastLocation);
+    favoriteNames = FavoriteCities(favoriteNames);
 }
