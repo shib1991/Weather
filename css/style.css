@@ -62,7 +62,6 @@ p {
     font-weight: 400;
     font-size: 70px;
     line-height: 82px;
-
     color: #000000;
 }
 
@@ -220,7 +219,7 @@ p {
 
 
 .Main-space_container-one_weather_locations_page2 {
-    padding: 33px 0px 46px 17px;
+    padding: 33px 0px 96px 17px;
     font-family: 'Roboto';
     font-weight: 400;
     font-size: 24px;
@@ -230,9 +229,7 @@ p {
 
 
 
-.Main-space_container-one_weather_none {
-   
-}
+.Main-space_container-one_weather_none {}
 
 
 
@@ -258,11 +255,11 @@ p {
 
 
 
-.hide_page{
+.hide_page {
     display: none;
 }
 
-.active_button{
+.active_button {
     background: #000000;
     color: #FFFFFF;
 }
@@ -275,8 +272,3 @@ p {
             color-stop(.5, rgba(255, 255, 255, .25));
 
     }
-
-    
-
-
-
