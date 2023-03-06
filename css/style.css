@@ -52,7 +52,8 @@ p {
     width: 299px;
 }
 
-.Main-space_container-one_weather {}
+
+
 
 .Main-space_container-one_weather_degrees {
     margin: 20px 0px 0px 23px;
@@ -111,6 +112,8 @@ p {
     background: #000000;
     color: #FFFFFF;
 }
+
+
 
 .Main_active-button {
     background: #000000;
@@ -185,7 +188,7 @@ p {
 
 
 
-.Main_space_container-added_locations-item{
+.Main_space_container-added_locations-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -196,6 +199,7 @@ p {
     padding: 0px;
     background: none;
 }
+
 .Main_space_container-added_locations_name {
     font-family: 'Roboto';
     font-style: normal;
@@ -207,7 +211,7 @@ p {
 
 
 
-.remImg{
+.remImg {
     width: 18px;
     height: 18px;
     margin-right: 10px;
@@ -215,34 +219,64 @@ p {
 }
 
 
-
-.Main_space_container-added_locations_list::-webkit-scrollbar {
-    width: 3px;
-  }
-  
-  .Main_space_container-added_locations_list::-webkit-scrollbar-track {
-    -webkit-box-shadow: 5px 5px 5px -5px rgba(200, 218, 231, 0.2) inset;
-    background-color: #f9f9fd;
-  }
-  
-  .Main_space_container-added_locations_list::-webkit-scrollbar-thumb {
-    background-color: #aeb0b3;
-    border-radius: 3px;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%,
-                      color-stop(.5, rgba(255, 255, 255, .25));
-                      
-  }
-
 .Main-space_container-one_weather_locations_page2 {
-    padding: 33px 0px 0px 17px;
+    padding: 33px 0px 46px 17px;
     font-family: 'Roboto';
     font-weight: 400;
     font-size: 24px;
     line-height: 38px;
-
     color: #000000;
 }
 
+
+
+.Main-space_container-one_weather_none {
+   
+}
+
+
+
+
 .weather-locations_names {
     padding-bottom: 42px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
 }
+
+.Main_space_container-added_locations_list::-webkit-scrollbar {
+    width: 3px;
+}
+
+.Main_space_container-added_locations_list::-webkit-scrollbar-track {
+    -webkit-box-shadow: 5px 5px 5px -5px rgba(200, 218, 231, 0.2) inset;
+    background-color: #f9f9fd;
+}
+
+
+
+.hide_page{
+    display: none;
+}
+
+.active_button{
+    background: #000000;
+    color: #FFFFFF;
+}
+
+
+.Main_space_container-added_locations_list::-webkit-scrollbar-thumb {
+    background-color: #aeb0b3;
+    border-radius: 3px;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%,
+            color-stop(.5, rgba(255, 255, 255, .25));
+
+    }
+
+    
+
+
+
