@@ -265,10 +265,84 @@ p {
 }
 
 
+
+
+
+
 .Main_space_container-added_locations_list::-webkit-scrollbar-thumb {
     background-color: #aeb0b3;
     border-radius: 3px;
     background-image: -webkit-gradient(linear, 0 0, 0 100%,
-            color-stop(.5, rgba(255, 255, 255, .25));
+            color-stop(.5, rgba(255, 255, 255, .25)));
 
-    }
+}
+
+
+
+.main-space_forecast {
+    padding: 33px 18px;
+    overflow-y: scroll;
+    height: 323px;
+}
+
+
+
+.main-space_forecast::-webkit-scrollbar-thumb {
+    height: 500px;
+    background-color: #aeb0b3;
+    border-radius: 3px;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%,
+            color-stop(.5, rgba(255, 255, 255, .25)));
+}
+
+.forecast_weather-locations_names {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+    margin-bottom: 7px;
+}
+
+
+.forecast_daily-weather {
+    border: 1px solid #000000;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+    margin-bottom: 9px;
+}
+
+.daily-weather_date-and-time {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 6px 12px 0px 8px;
+}
+
+.daily-weather_date {}
+
+.daily-weather_time {}
+
+.forecast_daily-weather_temp-and-type {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 38px 10px 3px 10px;
+}
+
+.daily-weather_temp {}
+
+.daily-weather_temp-deg {}
+
+.daily-weather_temp-feels-like {}
+
+.daily-weather_type {}
+
+.daily-weather_type_name {}
+
+.daily-weather_type_icon {}

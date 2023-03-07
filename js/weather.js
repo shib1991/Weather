@@ -8,6 +8,7 @@ const selectedCityWeather = document.querySelector('.Main-space_container-one_we
 const saveLocation = document.querySelector('.Main-space_container-one_weather_add-to-favorite');
 const PAGE_DETAILS = document.querySelector('.Main-space_container-one_weather_locations_page2');
 const PAGE_NOW = document.querySelector('.Main-space_container-one_weather');
+const PAGE_FORECAST = document.querySelector('.main-space_forecast');
 const BUTTON_NOW = document.querySelector('.Main-space_container-one_buttons_now');
 const BUTTON_DETAILS = document.querySelector('.Main-space_container-one_buttons_details');
 const BUTTON_FORECAST = document.querySelector('.Main-space_container-one_buttons_forecast');
@@ -44,6 +45,21 @@ BUTTON_NOW.addEventListener('click', () => {
         BUTTON_DETAILS.classList.remove('active_button');
         PAGE_DETAILS.classList.add('hide_page');
         PAGE_NOW.classList.remove('hide_page');
+        PAGE_FORECAST.classList.add('hide_page');
+    }
+
+})
+
+BUTTON_FORECAST.addEventListener('click', () => {
+    if (BUTTON_FORECAST.classList.contains('active_button')) {
+        return
+    } else {
+        BUTTON_FORECAST.classList.add('active_button');
+        BUTTON_NOW.classList.remove('active_button');
+        BUTTON_DETAILS.classList.remove('active_button');
+        PAGE_DETAILS.classList.add('hide_page');
+        PAGE_NOW.classList.add('hide_page');
+        PAGE_FORECAST.classList.remove('hide_page');
     }
 
 })
@@ -57,8 +73,8 @@ BUTTON_DETAILS.addEventListener('click', () => {
         BUTTON_NOW.classList.remove('active_button');
         PAGE_NOW.classList.add('hide_page');
         PAGE_DETAILS.classList.remove('hide_page')
+        PAGE_FORECAST.classList.add('hide_page');
     }
-
 })
 
 
