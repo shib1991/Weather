@@ -28,7 +28,6 @@ const API_KEY = 'f660a2fb1e4bad108d6160b7f58c555f';
 
 
 
-
 let favoriteNames = [];
 let lastLocation = showLastLocation();
 
@@ -83,13 +82,15 @@ BUTTON_DETAILS.addEventListener('click', () => {
 })
 
 form.addEventListener('submit', function (e) {
-    e.preventDefault()
+    e.preventDefault();
+    del();
     weather(searchLocationInput.value);
     forecast(searchLocationInput.value);
 });
 
 searchButton.addEventListener('click', (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    del();
     weather(searchLocationInput.value);
     forecast(searchLocationInput.value);
 })
@@ -142,6 +143,7 @@ function forecast(cityName) {
         })
 
         .then((forecast_data) => {
+            del();
             forecastName.textContent = forecast_data.city.name;
             for (let i = 0; i < forecast_data.list.length; i++) {
                 createDailyWeather(
@@ -156,7 +158,6 @@ function forecast(cityName) {
             return
         });
 }
-
 
 function createDailyWeather(dateArray, temp, feelsLike, weatherType, weatherTypeIcon) {
     Array = changeTimeDateForForecast(dateArray)
@@ -190,6 +191,7 @@ function createDailyWeather(dateArray, temp, feelsLike, weatherType, weatherType
     dailyWeatherTypeName.textContent = `${weatherType}`;
     dailyWeatherTypeIcon.src = (`http://openweathermap.org/img/wn/${weatherTypeIcon}@2x.png`);
 
+
     PAGE_FORECAST.appendChild(forecastdiv)
     forecastdiv.appendChild(dailyWeatherDateTime);
     dailyWeatherDateTime.appendChild(dailyWeatherDate);
@@ -204,6 +206,7 @@ function createDailyWeather(dateArray, temp, feelsLike, weatherType, weatherType
 }
 
 function showListOnDisplay(item) {
+
     const favoriteList = document.querySelector('.Main_space_container-added_locations_list');
     let button = document.createElement('button');
     button.id = item;
@@ -223,13 +226,13 @@ function showListOnDisplay(item) {
 }
 
 function addToFavoriteList(cityName) {
+    del();
     showListOnDisplay(cityName);
     weather(cityName);
     forecast(cityName);
     favoriteNames.push(cityName);
     saveInStorage(favoriteNames);
 }
-
 
 
 function openFavoriteList() {
@@ -253,6 +256,7 @@ function deleteItem(event) {
 function showWeather(event) {
     if (event.target.classList.contains('Main_space_container-added_locations_name')) {
         let Name = event.target.textContent;
+        del();
         weather(Name);
         forecast(Name);
     }
@@ -282,7 +286,6 @@ function changeTimeDateForForecast(time) {
     return datearray;
 }
 
-
 function changeNOW(name, temp, icon) {
     selectedCity.textContent = name;
     selectedCityTemp.innerHTML = Math.round(temp - 273) + '&deg;';
@@ -299,8 +302,16 @@ function changeDetails(name, temp, feels, wtype, sunrise, sunset) {
 }
 
 
+function del(){
+    let aa= document.querySelectorAll('.forecast_daily-weather');
+    aa.forEach(e=>{
+        e.remove();
+    })
+}
+
 window.onload = () => {
     openFavoriteList();
+    del();
     weather(lastLocation);
     forecast(lastLocation);
     favoriteNames = FavoriteCities(favoriteNames);
