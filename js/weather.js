@@ -18,11 +18,16 @@ const detailsFeelsLike = document.querySelector('.weather-locations_feels');
 const detailsWeatherType = document.querySelector('.weather-locations_weather-type');
 const detailsSunrise = document.querySelector('.weather-locations_sunrise');
 const detailsSunset = document.querySelector('.weather-locations_sunset');
+const forecastName = document.querySelector('.forecast_weather-locations_names');
 
-
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
 const SERVER_URL = 'http://api.openweathermap.org/data/2.5/weather';
+const SERVER_URL_FORECAST = 'http://api.openweathermap.org/data/2.5/forecast'
 const API_KEY = 'f660a2fb1e4bad108d6160b7f58c555f';
+
+
+
 
 let favoriteNames = [];
 let lastLocation = showLastLocation();
@@ -77,15 +82,16 @@ BUTTON_DETAILS.addEventListener('click', () => {
     }
 })
 
-
 form.addEventListener('submit', function (e) {
     e.preventDefault()
     weather(searchLocationInput.value);
+    forecast(searchLocationInput.value);
 });
 
 searchButton.addEventListener('click', (e) => {
     e.preventDefault()
     weather(searchLocationInput.value);
+    forecast(searchLocationInput.value);
 })
 
 saveLocation.addEventListener('click', function (e) {
@@ -106,10 +112,96 @@ favoritesList.addEventListener('click', deleteItem);
 favoritesList.addEventListener('click', showWeather);
 
 
-function showDetails() {
+function weather(cityName) {
 
+    const url = (`${SERVER_URL}?q=${cityName}&cnt=5&appid=${API_KEY}`);
+
+    fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+
+        .then((data) => {
+            changeNOW(data.name, data.main.temp, data.weather)
+            changeDetails(data.name, data.main.temp, data.main.feels_like, data.weather[0].main, changeTimeDate(data.sys.sunrise), changeTimeDate(data.sys.sunset))
+        })
+        .catch((err) => {
+            if (err.status === undefined) {
+                alert("Данный город не найден");
+            }
+        });
 }
 
+function forecast(cityName) {
+
+    const url = (`${SERVER_URL_FORECAST}?q=${cityName}&cnt=5&appid=${API_KEY}`);
+
+    fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+
+        .then((forecast_data) => {
+            forecastName.textContent = forecast_data.city.name;
+            for (let i = 0; i < forecast_data.list.length; i++) {
+                createDailyWeather(
+                    forecast_data.list[i].dt,
+                    forecast_data.list[i].main.temp,
+                    forecast_data.list[i].main.feels_like,
+                    forecast_data.list[i].weather[0].main,
+                    forecast_data.list[i].weather[0].icon);
+            }
+        })
+        .catch((err) => {
+            return
+        });
+}
+
+
+function createDailyWeather(dateArray, temp, feelsLike, weatherType, weatherTypeIcon) {
+    Array = changeTimeDateForForecast(dateArray)
+    let forecastdiv = document.createElement('div');
+    forecastdiv.className = 'forecast_daily-weather';
+    let dailyWeatherDateTime = document.createElement('div');
+    dailyWeatherDateTime.className = 'daily-weather_date-and-time';
+    let dailyWeatherDate = document.createElement('span');
+    dailyWeatherDate.className = 'daily-weather_date';
+    let dailyWeatherTime = document.createElement('span');
+    dailyWeatherTime.className = 'daily-weather_time';
+    let dailyWeatherTemptype = document.createElement('div');
+    dailyWeatherTemptype.className = 'forecast_daily-weather_temp-and-type';
+    let dailyWeatherTemp = document.createElement('div');
+    dailyWeatherTemp.className = 'daily-weather_temp';
+    let dailyWeatherTempDeg = document.createElement('p');
+    dailyWeatherTempDeg.className = 'daily-weather_temp-deg';
+    let dailyWeatherTempFeelslike = document.createElement('p');
+    dailyWeatherTempFeelslike.className = 'daily-weather_temp-feels-like';
+    let dailyWeatherType = document.createElement('div');
+    dailyWeatherType.className = 'daily-weather_type';
+    let dailyWeatherTypeName = document.createElement('p');
+    dailyWeatherTypeName.className = 'daily-weather_type_name';
+    let dailyWeatherTypeIcon = document.createElement('img');
+    dailyWeatherTypeIcon.className = 'daily-weather_type_icon';
+
+    dailyWeatherDate.textContent = Array[0];
+    dailyWeatherTime.textContent = Array[1];
+    dailyWeatherTempDeg.innerHTML = 'Temperature: ' + (Math.round(temp - 273)) + '&deg;';
+    dailyWeatherTempFeelslike.innerHTML = 'Feels Like: ' + (Math.round(feelsLike - 273)) + '&deg;';
+    dailyWeatherTypeName.textContent = `${weatherType}`;
+    dailyWeatherTypeIcon.src = (`http://openweathermap.org/img/wn/${weatherTypeIcon}@2x.png`);
+
+    PAGE_FORECAST.appendChild(forecastdiv)
+    forecastdiv.appendChild(dailyWeatherDateTime);
+    dailyWeatherDateTime.appendChild(dailyWeatherDate);
+    dailyWeatherDateTime.appendChild(dailyWeatherTime);
+    forecastdiv.appendChild(dailyWeatherTemptype);
+    dailyWeatherTemptype.appendChild(dailyWeatherTemp);
+    dailyWeatherTemp.appendChild(dailyWeatherTempDeg);
+    dailyWeatherTemp.appendChild(dailyWeatherTempFeelslike);
+    dailyWeatherTemptype.appendChild(dailyWeatherType);
+    dailyWeatherType.appendChild(dailyWeatherTypeName);
+    dailyWeatherType.appendChild(dailyWeatherTypeIcon);
+}
 
 function showListOnDisplay(item) {
     const favoriteList = document.querySelector('.Main_space_container-added_locations_list');
@@ -130,32 +222,15 @@ function showListOnDisplay(item) {
     favoriteList.appendChild(button);
 }
 
-function weather(cityName) {
-
-    const url = (`${SERVER_URL}?q=${cityName}&appid=${API_KEY}`);
-
-    fetch(url)
-        .then((response) => {
-            return response.json();
-        })
-
-        .then((data) => {
-            changeNOW(data.name, data.main.temp, data.weather)
-            changeDetails(data.name, data.main.temp, data.main.feels_like, data.weather[0].main, changeTimeDate(data.sys.sunrise), changeTimeDate(data.sys.sunset))
-        })
-        .catch((err) => {
-            if (err.status === undefined) {
-                alert("Данный город не найден");
-            }
-        });
-}
-
 function addToFavoriteList(cityName) {
     showListOnDisplay(cityName);
     weather(cityName);
+    forecast(cityName);
     favoriteNames.push(cityName);
     saveInStorage(favoriteNames);
 }
+
+
 
 function openFavoriteList() {
     let actualList = showFavoriteCities();
@@ -179,16 +254,34 @@ function showWeather(event) {
     if (event.target.classList.contains('Main_space_container-added_locations_name')) {
         let Name = event.target.textContent;
         weather(Name);
+        forecast(Name);
     }
 }
 
-function changeTimeDate(time){
-let unixTimeType =  new Date (time*1000);
-let hours = unixTimeType.getUTCHours().toString().padStart(2,0);
-let minutes = unixTimeType.getUTCMinutes().toString().padStart(2,0);
-let newTime = `${hours}:${minutes}`
-return newTime;
+function changeTimeDate(time) {
+    let unixTimeType = new Date(time * 1000);
+    let hours = unixTimeType.getUTCHours().toString().padStart(2, 0);
+    let minutes = unixTimeType.getUTCMinutes().toString().padStart(2, 0);
+    let newTime = `${hours}:${minutes}`
+    return newTime;
 }
+
+function changeTimeDateForForecast(time) {
+    let unixTimeType = new Date(time * 1000);
+    let date = unixTimeType.getUTCDate().toString().padStart(2, 0);
+    let month = unixTimeType.getUTCMonth().toString().padStart(2, 0);
+    let hours = unixTimeType.getUTCHours().toString().padStart(2, 0);
+    let minutes = unixTimeType.getUTCMinutes().toString().padStart(2, 0);
+    month = Number(month);
+    let newTime = `${hours}:${minutes}`
+    let newDate = `${date}${months[month]}`
+    let datearray = [
+        newDate,
+        newTime
+    ]
+    return datearray;
+}
+
 
 function changeNOW(name, temp, icon) {
     selectedCity.textContent = name;
@@ -198,8 +291,6 @@ function changeNOW(name, temp, icon) {
 
 function changeDetails(name, temp, feels, wtype, sunrise, sunset) {
     detailsName.textContent = name;
-/*     detailsTemp.textContent = `Temperature:   ${(Math.round(temp - 273))}`;
-    detailsFeelsLike.textContent = `Feels like:  ${Math.round(feels - 273)}`; */
     detailsTemp.innerHTML = 'Temperature: ' + (Math.round(temp - 273)) + '&deg;';
     detailsFeelsLike.innerHTML = 'Feels Like: ' + (Math.round(feels - 273)) + '&deg;';
     detailsWeatherType.textContent = `Weather: ${wtype}`;
@@ -208,11 +299,9 @@ function changeDetails(name, temp, feels, wtype, sunrise, sunset) {
 }
 
 
-
-
-
 window.onload = () => {
     openFavoriteList();
     weather(lastLocation);
+    forecast(lastLocation);
     favoriteNames = FavoriteCities(favoriteNames);
 }

@@ -345,4 +345,7 @@ p {
 
 .daily-weather_type_name {}
 
-.daily-weather_type_icon {}
+.daily-weather_type_icon {
+    height: 35px;
+    width: 35px;
+}
