@@ -312,7 +312,11 @@ function del(){
 window.onload = () => {
     openFavoriteList();
     del();
+    if(lastLocation == undefined){
+        return
+    }else{
     weather(lastLocation);
     forecast(lastLocation);
     favoriteNames = FavoriteCities(favoriteNames);
+};
 }
