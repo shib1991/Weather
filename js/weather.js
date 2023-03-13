@@ -27,6 +27,20 @@ const SERVER_URL_FORECAST = 'http://api.openweathermap.org/data/2.5/forecast'
 const API_KEY = 'f660a2fb1e4bad108d6160b7f58c555f';
 
 
+const cityName11 ={
+    name: "",
+    temp: "",
+    tempFeelsLike:"",
+    weatherType:"",
+    sunrise:"",
+    sunset:"",
+    date:["",""],
+    icon:""
+}
+
+
+    
+
 
 let favoriteNames = [];
 let lastLocation = showLastLocation();
@@ -123,8 +137,15 @@ function weather(cityName) {
         })
 
         .then((data) => {
+            /* changeDetails(data.name, data.main.temp, data.main.feels_like, data.weather[0].main, changeTimeDate(data.sys.sunrise), changeTimeDate(data.sys.sunset)) */
+            cityName11.name =  data.name 
+            cityName11.temp = data.main.temp
+            cityName11.tempFeelsLike =  data.main.feels_like
+            cityName11.weatherType = data.weather[0].main
+            cityName11.sunrise = changeTimeDate(data.sys.sunrise)
+            cityName11.sunset = changeTimeDate(data.sys.sunset)
             changeNOW(data.name, data.main.temp, data.weather)
-            changeDetails(data.name, data.main.temp, data.main.feels_like, data.weather[0].main, changeTimeDate(data.sys.sunrise), changeTimeDate(data.sys.sunset))
+            changeDetails(cityName11)
         })
         .catch((err) => {
             if (err.status === undefined) {
@@ -132,7 +153,6 @@ function weather(cityName) {
             }
         });
 }
-
 function forecast(cityName) {
 
     const url = (`${SERVER_URL_FORECAST}?q=${cityName}&cnt=5&appid=${API_KEY}`);
@@ -292,11 +312,24 @@ function changeNOW(name, temp, icon) {
     selectedCityWeather.src = (`http://openweathermap.org/img/wn/${icon[0]['icon']}@2x.png`);
 }
 
-function changeDetails(name, temp, feels, wtype, sunrise, sunset) {
-    detailsName.textContent = name;
+function changeDetails(cityName22/* name, temp, feels, wtype, sunrise, sunset */) {
+    let {name,
+        temp,
+        tempFeelsLike,
+        weatherType,
+        sunrise,
+        sunset,...rest}
+        = cityName22;
+    /* detailsName.textContent = name;
     detailsTemp.innerHTML = 'Temperature: ' + (Math.round(temp - 273)) + '&deg;';
     detailsFeelsLike.innerHTML = 'Feels Like: ' + (Math.round(feels - 273)) + '&deg;';
     detailsWeatherType.textContent = `Weather: ${wtype}`;
+    detailsSunrise.textContent = `Sunrise: ${sunrise}`;
+    detailsSunset.textContent = `Sunset: ${sunset}`; */
+    detailsName.textContent = name;
+    detailsTemp.innerHTML = 'Temperature: ' + (Math.round(temp - 273)) + '&deg;';
+    detailsFeelsLike.innerHTML = 'Feels Like: ' + (Math.round(tempFeelsLike - 273)) + '&deg;';
+    detailsWeatherType.textContent = `Weather: ${weatherType}`;
     detailsSunrise.textContent = `Sunrise: ${sunrise}`;
     detailsSunset.textContent = `Sunset: ${sunset}`;
 }
