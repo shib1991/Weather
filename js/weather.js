@@ -27,19 +27,19 @@ const SERVER_URL_FORECAST = 'http://api.openweathermap.org/data/2.5/forecast'
 const API_KEY = 'f660a2fb1e4bad108d6160b7f58c555f';
 
 
-const cityName11 ={
+const cityName11 = {
     name: "",
     temp: "",
-    tempFeelsLike:"",
-    weatherType:"",
-    sunrise:"",
-    sunset:"",
-    date:["",""],
-    icon:""
+    tempFeelsLike: "",
+    weatherType: "",
+    sunrise: "",
+    sunset: "",
+    date: ["", ""],
+    icon: ""
 }
 
 
-    
+
 
 
 let favoriteNames = [];
@@ -127,7 +127,7 @@ favoritesList.addEventListener('click', deleteItem);
 favoritesList.addEventListener('click', showWeather);
 
 
-function weather(cityName) {
+/* function weather(cityName) {
 
     const url = (`${SERVER_URL}?q=${cityName}&cnt=5&appid=${API_KEY}`);
 
@@ -137,7 +137,6 @@ function weather(cityName) {
         })
 
         .then((data) => {
-            /* changeDetails(data.name, data.main.temp, data.main.feels_like, data.weather[0].main, changeTimeDate(data.sys.sunrise), changeTimeDate(data.sys.sunset)) */
             cityName11.name =  data.name 
             cityName11.temp = data.main.temp
             cityName11.tempFeelsLike =  data.main.feels_like
@@ -153,30 +152,53 @@ function weather(cityName) {
             }
         });
 }
-function forecast(cityName) {
+ */
+
+async function weather(cityName) {
+
+    const url = (`${SERVER_URL}?q=${cityName}&cnt=5&appid=${API_KEY}`);
+
+    try {
+        let response = await fetch(url);
+        let data = await response.json();
+        cityName11.name = data.name
+        cityName11.temp = data.main.temp
+        cityName11.tempFeelsLike = data.main.feels_like
+        cityName11.weatherType = data.weather[0].main
+        cityName11.sunrise = changeTimeDate(data.sys.sunrise)
+        cityName11.sunset = changeTimeDate(data.sys.sunset)
+        changeNOW(data.name, data.main.temp, data.weather)
+        changeDetails(cityName11)
+
+    } catch (err) {
+        if (err.status === undefined) {
+            alert("Данный город не найден");
+        }
+    };
+}
+
+
+
+async function forecast(cityName) {
 
     const url = (`${SERVER_URL_FORECAST}?q=${cityName}&cnt=5&appid=${API_KEY}`);
 
-    fetch(url)
-        .then((response) => {
-            return response.json();
-        })
-
-        .then((forecast_data) => {
-            del();
-            forecastName.textContent = forecast_data.city.name;
-            for (let i = 0; i < forecast_data.list.length; i++) {
-                createDailyWeather(
-                    forecast_data.list[i].dt,
-                    forecast_data.list[i].main.temp,
-                    forecast_data.list[i].main.feels_like,
-                    forecast_data.list[i].weather[0].main,
-                    forecast_data.list[i].weather[0].icon);
-            }
-        })
-        .catch((err) => {
-            return
-        });
+    try {
+        let response = await fetch(url);
+        let forecast_data = await response.json();
+        del();
+        forecastName.textContent = forecast_data.city.name;
+        for (let i = 0; i < forecast_data.list.length; i++) {
+            createDailyWeather(
+                forecast_data.list[i].dt,
+                forecast_data.list[i].main.temp,
+                forecast_data.list[i].main.feels_like,
+                forecast_data.list[i].weather[0].main,
+                forecast_data.list[i].weather[0].icon);
+        }
+    } catch (err) {
+        return
+    };
 }
 
 function createDailyWeather(dateArray, temp, feelsLike, weatherType, weatherTypeIcon) {
@@ -312,14 +334,16 @@ function changeNOW(name, temp, icon) {
     selectedCityWeather.src = (`http://openweathermap.org/img/wn/${icon[0]['icon']}@2x.png`);
 }
 
-function changeDetails(cityName22/* name, temp, feels, wtype, sunrise, sunset */) {
-    let {name,
+function changeDetails(cityName22 /* name, temp, feels, wtype, sunrise, sunset */ ) {
+    let {
+        name,
         temp,
         tempFeelsLike,
         weatherType,
         sunrise,
-        sunset,...rest}
-        = cityName22;
+        sunset,
+        ...rest
+    } = cityName22;
     /* detailsName.textContent = name;
     detailsTemp.innerHTML = 'Temperature: ' + (Math.round(temp - 273)) + '&deg;';
     detailsFeelsLike.innerHTML = 'Feels Like: ' + (Math.round(feels - 273)) + '&deg;';
@@ -335,9 +359,9 @@ function changeDetails(cityName22/* name, temp, feels, wtype, sunrise, sunset */
 }
 
 
-function del(){
-    let aa= document.querySelectorAll('.forecast_daily-weather');
-    aa.forEach(e=>{
+function del() {
+    let aa = document.querySelectorAll('.forecast_daily-weather');
+    aa.forEach(e => {
         e.remove();
     })
 }
@@ -345,11 +369,11 @@ function del(){
 window.onload = () => {
     openFavoriteList();
     del();
-    if(lastLocation == undefined){
+    if (lastLocation == undefined) {
         return
-    }else{
-    weather(lastLocation);
-    forecast(lastLocation);
-    favoriteNames = FavoriteCities(favoriteNames);
-};
+    } else {
+        weather(lastLocation);
+        forecast(lastLocation);
+        favoriteNames = FavoriteCities(favoriteNames);
+    };
 }
