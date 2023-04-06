@@ -10,11 +10,6 @@ function FavoriteCities(farray) {
     return farray;
 }
 
-function showFavoriteCities() {
-
-    const favarray = JSON.parse(localStorage.getItem(KEY));
-    return favarray;
-}
 
 function showLastLocation() {
     const array = JSON.parse(localStorage.getItem(KEY));
@@ -23,7 +18,6 @@ function showLastLocation() {
 }
 
 export {
-    showFavoriteCities,
     saveInStorage,
     showLastLocation,
     FavoriteCities

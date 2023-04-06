@@ -45,8 +45,8 @@ const cityName11 = {
 let favoriteNames = [];
 let lastLocation = showLastLocation();
 
+import { showFavoriteCities } from "./DynModule.js";
 import {
-    showFavoriteCities,
     saveInStorage,
     showLastLocation,
     FavoriteCities
@@ -183,22 +183,22 @@ async function forecast(cityName) {
 
     const url = (`${SERVER_URL_FORECAST}?q=${cityName}&cnt=5&appid=${API_KEY}`);
 
-    try {
-        let response = await fetch(url);
-        let forecast_data = await response.json();
-        del();
-        forecastName.textContent = forecast_data.city.name;
-        for (let i = 0; i < forecast_data.list.length; i++) {
-            createDailyWeather(
-                forecast_data.list[i].dt,
-                forecast_data.list[i].main.temp,
-                forecast_data.list[i].main.feels_like,
-                forecast_data.list[i].weather[0].main,
-                forecast_data.list[i].weather[0].icon);
-        }
-    } catch (err) {
-        return
-    };
+ try{
+    let response = await fetch(url);
+    let forecast_data = await response.json(); 
+            del();
+            forecastName.textContent = forecast_data.city.name;
+            for (let i = 0; i < forecast_data.list.length; i++) {
+                createDailyWeather(
+                    forecast_data.list[i].dt,
+                    forecast_data.list[i].main.temp,
+                    forecast_data.list[i].main.feels_like,
+                    forecast_data.list[i].weather[0].main,
+                    forecast_data.list[i].weather[0].icon);
+            }
+        } catch(err) {
+            return
+        };
 }
 
 function createDailyWeather(dateArray, temp, feelsLike, weatherType, weatherTypeIcon) {
@@ -277,8 +277,9 @@ function addToFavoriteList(cityName) {
 }
 
 
-function openFavoriteList() {
-    let actualList = showFavoriteCities();
+async function openFavoriteList() {
+    await import ('./DynModule.js');
+    const actualList = showFavoriteCities();
     actualList.forEach(el => {
         showListOnDisplay(el);
     });
