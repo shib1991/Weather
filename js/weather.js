@@ -38,21 +38,25 @@ const cityName11 = {
     icon: ""
 }
 
-
-
-
-
-let favoriteNames = [];
-let lastLocation = showLastLocation();
-
-import { showFavoriteCities } from "./DynModule.js";
+/* 
+import { format } from 'date-fns'
+ */
+import {
+    showFavoriteCities
+} from "./DynModule.js";
 import {
     saveInStorage,
     showLastLocation,
-    FavoriteCities
+    FavoriteCities,
+    setCookie,
+    getCookie
 } from "./module.js";
 
-
+let favoriteNames = [];
+setCookie("lastlocation", showLastLocation(), {
+    secure: true,
+    'max-age': 3600
+});
 
 BUTTON_NOW.addEventListener('click', () => {
     if (BUTTON_NOW.classList.contains('active_button')) {
@@ -127,33 +131,6 @@ favoritesList.addEventListener('click', deleteItem);
 favoritesList.addEventListener('click', showWeather);
 
 
-/* function weather(cityName) {
-
-    const url = (`${SERVER_URL}?q=${cityName}&cnt=5&appid=${API_KEY}`);
-
-    fetch(url)
-        .then((response) => {
-            return response.json();
-        })
-
-        .then((data) => {
-            cityName11.name =  data.name 
-            cityName11.temp = data.main.temp
-            cityName11.tempFeelsLike =  data.main.feels_like
-            cityName11.weatherType = data.weather[0].main
-            cityName11.sunrise = changeTimeDate(data.sys.sunrise)
-            cityName11.sunset = changeTimeDate(data.sys.sunset)
-            changeNOW(data.name, data.main.temp, data.weather)
-            changeDetails(cityName11)
-        })
-        .catch((err) => {
-            if (err.status === undefined) {
-                alert("Данный город не найден");
-            }
-        });
-}
- */
-
 async function weather(cityName) {
 
     const url = (`${SERVER_URL}?q=${cityName}&cnt=5&appid=${API_KEY}`);
@@ -165,6 +142,9 @@ async function weather(cityName) {
         cityName11.temp = data.main.temp
         cityName11.tempFeelsLike = data.main.feels_like
         cityName11.weatherType = data.weather[0].main
+
+        /* cityName11.sunrise = format(data.sys.sunrise, 'HH:mm');
+        cityName11.sunset = format(data.sys.sunset, 'HH:mm'); */
         cityName11.sunrise = changeTimeDate(data.sys.sunrise)
         cityName11.sunset = changeTimeDate(data.sys.sunset)
         changeNOW(data.name, data.main.temp, data.weather)
@@ -183,22 +163,22 @@ async function forecast(cityName) {
 
     const url = (`${SERVER_URL_FORECAST}?q=${cityName}&cnt=5&appid=${API_KEY}`);
 
- try{
-    let response = await fetch(url);
-    let forecast_data = await response.json(); 
-            del();
-            forecastName.textContent = forecast_data.city.name;
-            for (let i = 0; i < forecast_data.list.length; i++) {
-                createDailyWeather(
-                    forecast_data.list[i].dt,
-                    forecast_data.list[i].main.temp,
-                    forecast_data.list[i].main.feels_like,
-                    forecast_data.list[i].weather[0].main,
-                    forecast_data.list[i].weather[0].icon);
-            }
-        } catch(err) {
-            return
-        };
+    try {
+        let response = await fetch(url);
+        let forecast_data = await response.json();
+        del();
+        forecastName.textContent = forecast_data.city.name;
+        for (let i = 0; i < forecast_data.list.length; i++) {
+            createDailyWeather(
+                forecast_data.list[i].dt,
+                forecast_data.list[i].main.temp,
+                forecast_data.list[i].main.feels_like,
+                forecast_data.list[i].weather[0].main,
+                forecast_data.list[i].weather[0].icon);
+        }
+    } catch (err) {
+        return
+    };
 }
 
 function createDailyWeather(dateArray, temp, feelsLike, weatherType, weatherTypeIcon) {
@@ -278,7 +258,7 @@ function addToFavoriteList(cityName) {
 
 
 async function openFavoriteList() {
-    await import ('./DynModule.js');
+    await import('./DynModule.js');
     const actualList = showFavoriteCities();
     actualList.forEach(el => {
         showListOnDisplay(el);
@@ -370,11 +350,11 @@ function del() {
 window.onload = () => {
     openFavoriteList();
     del();
-    if (lastLocation == undefined) {
+    if (getCookie("lastlocation") == undefined) {
         return
     } else {
-        weather(lastLocation);
-        forecast(lastLocation);
+        weather(getCookie("lastlocation"));
+        forecast(getCookie("lastlocation"));
         favoriteNames = FavoriteCities(favoriteNames);
     };
 }
